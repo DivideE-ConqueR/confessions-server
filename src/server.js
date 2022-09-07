@@ -2,6 +2,8 @@ import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
+import test from "./routes/test.js";
+
 dotenv.config({ debug: true });
 const app = express();
 app.use(express.json());
@@ -15,18 +17,12 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessions" }).then(
   }
 );
 
-let arr = [];
-
 app.get("/", (req, res) => {
-  res.send("Hello Confessions API");
+  res.status(200).send("Hello Confessions API");
 });
 
-app.post("/new", (req, res) => {
-  arr.push(req.body);
-  res.send(arr);
-});
+app.use("/api/test", test);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("server started");
 });
