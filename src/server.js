@@ -1,17 +1,24 @@
-import * as dotenv from 'dotenv'
-dotenv.config()
+import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
+dotenv.config({ debug: true });
 const app = express();
 app.use(express.json());
 
-
-mongoose.connect(`mongodb+srv://dev-admin:${process.env.MONGO_PASSWORD}@dev-cluster.d0zasl2.mongodb.net/?retryWrites=true&w=majority`);
+mongoose.connect(process.env.DB_URI, { dbName: "confessions" }).then(
+  () => {
+    console.log("Connected to MongoDB");
+  },
+  (err) => {
+    console.log(err);
+  }
+);
 
 let arr = [];
+
 app.get("/", (req, res) => {
-  res.send("Hello Confession!");
+  res.send("Hello Confessions API");
 });
 
 app.post("/new", (req, res) => {
