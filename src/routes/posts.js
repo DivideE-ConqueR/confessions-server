@@ -28,4 +28,14 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.get("/", (req, res) => {
+  Post.find({}, (err, posts) => {
+    if (err) {
+      res.status(500).send("Error fetching posts");
+    } else {
+      res.status(200).json(posts);
+    }
+  });
+});
+
 export default router;
