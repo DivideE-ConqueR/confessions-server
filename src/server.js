@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
-import test from "./routes/test.js";
+import posts from "./routes/posts.js";
 
 dotenv.config({ debug: true });
 const app = express();
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 
-app.use("/api/test", test);
+app.use("/api/posts", posts);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started");
