@@ -34,10 +34,24 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    commentsNumber: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     reports: {
       type: Number,
       required: true,
       default: 0,
+    },
+    postEngagement: {
+      type: mongoose.Types.Decimal128,
+      required: true,
+      default: 0,
+    },
+    IPAddress: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
