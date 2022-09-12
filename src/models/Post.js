@@ -15,15 +15,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    postTags: {
-      type: [
-        {
-          type: String,
-          required: true,
-        },
-      ],
-      required: true,
-    },
+    postTags: [String],
     likes: {
       type: Number,
       required: true,
