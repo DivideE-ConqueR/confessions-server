@@ -4,6 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
+import likes from "./routes/likes.js";
 
 dotenv.config({ debug: true });
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/posts", posts);
+app.use("/api/likes", likes);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
