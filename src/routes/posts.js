@@ -38,4 +38,14 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/:postId", (req, res) => {
+  Post.findOne({ postId: req.params.postId }, (err, post) => {
+    if (err) {
+      res.status(500).send("Error fetching post");
+    } else {
+      res.status(200).json(post);
+    }
+  });
+});
+
 export default router;
