@@ -8,6 +8,21 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      default: null,
+    },
+    reports: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    likes: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
