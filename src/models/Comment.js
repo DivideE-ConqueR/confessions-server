@@ -10,7 +10,6 @@ const commentSchema = new mongoose.Schema(
     },
     parentId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       default: null,
     },
     reports: {
