@@ -5,7 +5,9 @@ import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
 import likes from "./routes/likes.js";
+import unlikes from "./routes/unlikes.js";
 import dislikes from "./routes/dislikes.js";
+import undislikes from "./routes/undislikes.js";
 import comments from "./routes/comments.js";
 
 dotenv.config({ debug: true });
@@ -28,7 +30,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/posts", posts);
 app.use("/api/likes", likes);
+app.use("/api/unlikes", unlikes);
 app.use("/api/dislikes", dislikes);
+app.use("/api/undislikes", undislikes);
 app.use("/api/comments", comments);
 
 app.listen(process.env.PORT || 8000, () => {
