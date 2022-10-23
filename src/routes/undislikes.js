@@ -9,7 +9,11 @@ router.post("/", (req, res) => {
     { $inc: { dislikes: -1 } },
     (err) => {
       if (err) {
-        res.status(500).send("Error syncning undislikes");
+        res
+          .status(500)
+          .send(
+            "Error while syncing undislikes, please try again later or contact support"
+          );
       } else {
         res.status(200).json("Undislikes synced");
       }
