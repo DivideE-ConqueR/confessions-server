@@ -2,8 +2,12 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
   {
-    postId: {
+    uid: {
       type: String,
+      required: true,
+    },
+    pno: {
+      type: Number,
       required: true,
       unique: true,
     },
@@ -11,39 +15,58 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    postBody: {
+    body: {
       type: String,
       required: true,
     },
-    postTags: [String],
-    likes: {
-      type: Number,
-      required: true,
-      default: 0,
+    tags: [String],
+    count: {
+      likes: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: [0, "Likes cannot be negative"],
+      },
+      dislikes: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: [0, "Dislikes cannot be negative"],
+      },
+      comments: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: [0, "Comments cannot be negative"],
+      },
+      views: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: [0, "Views cannot be negative"],
+      },
     },
-    dislikes: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    commentsNumber: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    reports: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    postEngagement: {
+    engagement: {
       type: mongoose.Types.Decimal128,
       required: true,
       default: 0,
     },
-    IPAddress: {
-      type: String,
-      required: true,
+    meta: {
+      reports: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: [0, "Reports cannot be negative"],
+      },
+      ip: {
+        type: String,
+        required: true,
+      },
+      isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false,
+      },
     },
   },
   { timestamps: true }
