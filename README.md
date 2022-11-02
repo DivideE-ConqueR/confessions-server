@@ -1,5 +1,6 @@
 # Confessions Server
 
+[![CodeQL](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/codeql.yml/badge.svg)](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/codeql.yml)
 
 ### Requirements
 
