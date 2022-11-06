@@ -10,30 +10,47 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const newComment = new Comment({
-    ...req.body,
     name: uniqueNamesGenerator({
       dictionaries: [adjectives, names],
       separator: " ",
       style: "capital",
     }),
+    ...req.body,
   });
+
   await newComment.save((err) => {
     if (err) {
-      res.status(500).send("Error saving comment");
+      res
+        .status(500)
+        .json({ status: "error", message: "Error saving comment", data: "" });
     } else {
-      res.status(201).json("Comment created");
+      res
+        .status(201)
+        .json({ status: "success", message: "Comment created", data: "" });
     }
   });
 });
 
-router.get("/:postId", (req, res) => {
-  Comment.find({ postId: req.params.postId }, (err, comments) => {
-    if (err) {
-      res.status(500).send("Error fetching comments");
-    } else {
-      res.status(200).json(comments);
+router.get("/:id", (req, res) => {
+  Comment.find(
+    { $and: [{ pid: req.params.id }, { "meta.isDeleted": false }] },
+    { meta: 0 },
+    (err, comments) => {
+      if (err) {
+        res.status(500).json({
+          status: "error",
+          message: "Error fetching comments",
+          data: "",
+        });
+      } else {
+        res.status(200).json({
+          status: "success",
+          message: "Comments fetched successfully",
+          data: comments,
+        });
+      }
     }
-  });
+  );
 });
 
 export default router;
