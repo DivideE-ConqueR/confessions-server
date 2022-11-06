@@ -56,9 +56,11 @@ router.post("/", (req, res) => {
               data: ""
             });
           } else {
-            res
-              .status(200)
-              .json({ status: "success", message: "Dislikes synced", data: "" });
+            res.status(200).json({
+              status: "success",
+              message: "Dislikes synced",
+              data: "",
+            });
           }
         }
       );
