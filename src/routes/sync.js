@@ -17,11 +17,12 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
+              data: ""
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Likes synced" });
+              .json({ status: "success", message: "Likes synced", data: "" });
           }
         }
       );
@@ -34,11 +35,12 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
+              data: ""
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Likes synced" });
+              .json({ status: "success", message: "Likes synced", data: "" });
           }
         }
       );
@@ -51,11 +53,12 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
+              data: ""
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Dislikes synced" });
+              .json({ status: "success", message: "Dislikes synced", data: "" });
           }
         }
       );
@@ -68,11 +71,12 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
+              data: ""
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Dislikes synced" });
+              .json({ status: "success", message: "Dislikes synced", data: "" });
           }
         }
       );
@@ -85,17 +89,20 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing reports, please try again later",
+              data: ""
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Reports synced" });
+              .json({ status: "success", message: "Reports synced", data: "" });
           }
         }
       );
     }
   } else {
-    res.status(400).json({ status: "error", message: "Invalid request" });
+    res
+      .status(400)
+      .json({ status: "error", message: "Invalid request", data: "" });
   }
 });
 
