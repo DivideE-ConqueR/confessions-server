@@ -11,10 +11,6 @@ const commentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       default: null,
     },
-    uid: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -56,6 +52,10 @@ const commentSchema = new mongoose.Schema(
       default: 0,
     },
     meta: {
+      uid: {
+        type: String,
+        required: true,
+      },
       reports: {
         type: Number,
         required: true,

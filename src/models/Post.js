@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema(
   {
-    uid: {
-      type: String,
-      required: true,
-    },
     pno: {
       type: Number,
       required: true,
@@ -52,6 +48,10 @@ const postSchema = new mongoose.Schema(
       default: 0,
     },
     meta: {
+      uid: {
+        type: String,
+        required: true,
+      },
       reports: {
         type: Number,
         required: true,
