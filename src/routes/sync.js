@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
         { $inc: { "count.likes": 1 } },
         (err) => {
           if (err) {
-            res.status(422).json({
+            res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
             });
@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
         { $inc: { "count.likes": -1 } },
         (err) => {
           if (err) {
-            res.status(422).json({
+            res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
             });
@@ -48,7 +48,7 @@ router.post("/", (req, res) => {
         { $inc: { "count.dislikes": 1 } },
         (err) => {
           if (err) {
-            res.status(422).json({
+            res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
             });
@@ -65,7 +65,7 @@ router.post("/", (req, res) => {
         { $inc: { "count.dislikes": -1 } },
         (err) => {
           if (err) {
-            res.status(422).json({
+            res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
             });
@@ -82,7 +82,7 @@ router.post("/", (req, res) => {
         { $inc: { "count.reports": 1 } },
         (err) => {
           if (err) {
-            res.status(422).json({
+            res.status(500).json({
               status: "error",
               message: "Error while syncing reports, please try again later",
             });
