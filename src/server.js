@@ -10,6 +10,7 @@ import dislikes from "./routes/dislikes.js";
 import undislikes from "./routes/undislikes.js";
 import comments from "./routes/comments.js";
 import reports from "./routes/reports.js";
+import sync from "./routes/sync.js";
 
 dotenv.config({ debug: true });
 const app = express();
@@ -36,6 +37,7 @@ app.use("/api/dislikes", dislikes);
 app.use("/api/undislikes", undislikes);
 app.use("/api/comments", comments);
 app.use("/api/reports", reports);
+app.use("/api/sync", sync);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
