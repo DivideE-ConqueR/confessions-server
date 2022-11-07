@@ -30,6 +30,10 @@ app.get("/", (req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 
+app.get("/api", (req, res) => {
+  res.redirect(303, "/");
+});
+
 app.use("/api/posts", posts);
 app.use("/api/likes", likes);
 app.use("/api/unlikes", unlikes);
@@ -45,7 +49,6 @@ app.all("*", (req, res) => {
     .json({ status: "error", message: "404 - Not Found", data: null });
 }); 
 
-    .status(404)
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
 });
