@@ -4,12 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
-import likes from "./routes/likes.js";
-import unlikes from "./routes/unlikes.js";
-import dislikes from "./routes/dislikes.js";
-import undislikes from "./routes/undislikes.js";
 import comments from "./routes/comments.js";
-import reports from "./routes/reports.js";
 import sync from "./routes/sync.js";
 
 dotenv.config({ debug: true });
@@ -35,12 +30,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/posts", posts);
-app.use("/api/likes", likes);
-app.use("/api/unlikes", unlikes);
-app.use("/api/dislikes", dislikes);
-app.use("/api/undislikes", undislikes);
 app.use("/api/comments", comments);
-app.use("/api/reports", reports);
 app.use("/api/sync", sync);
 
 app.all("*", (req, res) => {
