@@ -22,11 +22,11 @@ router.post("/", async (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ status: "error", message: "Error saving post", data: "" });
+        .json({ status: "error", message: "Error saving post", data: null });
     } else {
       res
         .status(201)
-        .json({ status: "success", message: "Post created", data: "" });
+        .json({ status: "success", message: "Post created", data: null });
     }
   });
 });
@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ status: "error", message: "Error fetching posts", data: "" });
+        .json({ status: "error", message: "Error fetching posts", data: null });
     } else {
       res.status(200).json({
         status: "success",
@@ -52,7 +52,7 @@ router.get("/:id", (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ status: "error", message: "Error fetching post", data: "" });
+        .json({ status: "error", message: "Error fetching post", data: null });
     } else {
       const { meta, ...others } = post.toObject();
 

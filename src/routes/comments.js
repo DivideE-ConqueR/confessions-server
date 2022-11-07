@@ -22,11 +22,11 @@ router.post("/", async (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ status: "error", message: "Error saving comment", data: "" });
+        .json({ status: "error", message: "Error saving comment", data: null });
     } else {
       res
         .status(201)
-        .json({ status: "success", message: "Comment created", data: "" });
+        .json({ status: "success", message: "Comment created", data: null });
     }
   });
 });
@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
         res.status(500).json({
           status: "error",
           message: "Error fetching comments",
-          data: "",
+          data: null,
         });
       } else {
         res.status(200).json({
