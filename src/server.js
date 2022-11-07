@@ -39,6 +39,13 @@ app.use("/api/comments", comments);
 app.use("/api/reports", reports);
 app.use("/api/sync", sync);
 
+app.all("*", (req, res) => {
+  res
+    .status(404)
+    .json({ status: "error", message: "404 - Not Found", data: null });
+}); 
+
+    .status(404)
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
 });
