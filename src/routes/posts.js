@@ -20,9 +20,11 @@ router.post("/", async (req, res) => {
 
   await newPost.save((err) => {
     if (err) {
-      res
-        .status(500)
-        .json({ status: "error", message: "Error saving post", data: null });
+      res.status(500).json({
+        status: "error",
+        message: `Error saving post - ${err.message}`,
+        data: null,
+      });
     } else {
       res
         .status(201)
@@ -34,9 +36,11 @@ router.post("/", async (req, res) => {
 router.get("/", (req, res) => {
   Post.find({ "meta.isDeleted": false }, { meta: 0 }, (err, posts) => {
     if (err) {
-      res
-        .status(500)
-        .json({ status: "error", message: "Error fetching posts", data: null });
+      res.status(500).json({
+        status: "error",
+        message: `Error fetching posts - ${err.message}`,
+        data: null,
+      });
     } else {
       res.status(200).json({
         status: "success",
@@ -52,7 +56,11 @@ router.get("/:id", (req, res) => {
     if (err) {
       res
         .status(500)
-        .json({ status: "error", message: "Error fetching post", data: null });
+        .json({
+          status: "error",
+          message: `Error fetching post - ${err.message}`,
+          data: null,
+        });
     } else {
       const { meta, ...others } = post.toObject();
 
