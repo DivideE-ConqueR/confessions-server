@@ -62,13 +62,21 @@ router.get("/:id", (req, res) => {
           data: null,
         });
     } else {
-      const { meta, ...others } = post.toObject();
+      if (post) {
+        const { meta, ...others } = post.toObject();
 
-      res.status(200).json({
-        status: "success",
-        message: "Post fetched successfully",
-        data: { ...others, meta: { isDeleted: meta.isDeleted } },
-      });
+        res.status(200).json({
+          status: "success",
+          message: "Post fetched successfully",
+          data: { ...others, meta: { isDeleted: meta.isDeleted } },
+        });
+      } else {
+        res.status(404).json({
+          status: "error",
+          message: `Post not found`,
+          data: null,
+        });
+      }
     }
   });
 });
