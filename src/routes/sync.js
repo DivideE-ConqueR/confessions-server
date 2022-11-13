@@ -85,18 +85,22 @@ router.post("/", (req, res) => {
     } else if (v === "reports") {
       Post.updateMany(
         { _id: { $in: ids } },
-        { $inc: { "count.reports": 1 } },
+        { $inc: { "meta.reports": 1 } },
         (err) => {
           if (err) {
             res.status(500).json({
               status: "error",
               message: "Error while syncing reports, please try again later",
-              data: null
+              data: null,
             });
           } else {
             res
               .status(200)
-              .json({ status: "success", message: "Reports synced", data: null });
+              .json({
+                status: "success",
+                message: "Reports synced",
+                data: null,
+              });
           }
         }
       );
