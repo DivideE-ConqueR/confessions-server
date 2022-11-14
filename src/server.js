@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.DB_URI, { dbName: "confessions" }).then(
+mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
     console.log("Connected to MongoDB");
   },
