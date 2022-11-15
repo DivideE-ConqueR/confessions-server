@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { nanoid } from "nanoid";
 import {
   uniqueNamesGenerator,
   adjectives,
@@ -11,7 +10,6 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const newPost = new Post({
-    postId: nanoid(),
     name: uniqueNamesGenerator({
       dictionaries: [adjectives, names],
       separator: " ",
@@ -19,31 +17,64 @@ router.post("/", async (req, res) => {
     }),
     ...req.body,
   });
+
   await newPost.save((err) => {
     if (err) {
-      res.status(500).send("Error saving post");
+      res.status(500).json({
+        status: "error",
+        message: `Error saving post - ${err.message}`,
+        data: null,
+      });
     } else {
-      res.status(201).json("Post created");
+      res
+        .status(201)
+        .json({ status: "success", message: "Post created", data: null });
     }
   });
 });
 
-router.get("/", (req, res) => {
-  Post.find({}, (err, posts) => {
+router.get("/", (_req, res) => {
+  Post.find({ "meta.isDeleted": false }, { meta: 0, tags: 0 }, (err, posts) => {
     if (err) {
-      res.status(500).send("Error fetching posts");
+      res.status(500).json({
+        status: "error",
+        message: `Error fetching posts - ${err.message}`,
+        data: null,
+      });
     } else {
-      res.status(200).json(posts);
+      res.status(200).json({
+        status: "success",
+        message: "Posts fetched successfully",
+        data: posts,
+      });
     }
   });
 });
 
-router.get("/:postId", (req, res) => {
-  Post.findOne({ postId: req.params.postId }, (err, post) => {
+router.get("/:id", (req, res) => {
+  Post.findOne({ _id: req.params.id }, { tags: 0 }, (err, post) => {
     if (err) {
-      res.status(500).send("Error fetching post");
+      res.status(500).json({
+        status: "error",
+        message: `Error fetching post - ${err.message}`,
+        data: null,
+      });
     } else {
-      res.status(200).json(post);
+      if (post) {
+        const { meta, ...others } = post.toObject();
+
+        res.status(200).json({
+          status: "success",
+          message: "Post fetched successfully",
+          data: { ...others, meta: { isDeleted: meta.isDeleted } },
+        });
+      } else {
+        res.status(404).json({
+          status: "error",
+          message: `Post not found`,
+          data: null,
+        });
+      }
     }
   });
 });

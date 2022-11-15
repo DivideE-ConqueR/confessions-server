@@ -4,19 +4,15 @@ import express from "express";
 import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
-import likes from "./routes/likes.js";
-import unlikes from "./routes/unlikes.js";
-import dislikes from "./routes/dislikes.js";
-import undislikes from "./routes/undislikes.js";
 import comments from "./routes/comments.js";
-import reports from "./routes/reports.js";
+import sync from "./routes/sync.js";
 
 dotenv.config({ debug: true });
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.DB_URI, { dbName: "confessions" }).then(
+mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
     console.log("Connected to MongoDB");
   },
@@ -25,17 +21,23 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessions" }).then(
   }
 );
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 
+app.get("/api", (_req, res) => {
+  res.redirect(303, "/");
+});
+
 app.use("/api/posts", posts);
-app.use("/api/likes", likes);
-app.use("/api/unlikes", unlikes);
-app.use("/api/dislikes", dislikes);
-app.use("/api/undislikes", undislikes);
 app.use("/api/comments", comments);
-app.use("/api/reports", reports);
+app.use("/api/sync", sync);
+
+app.all("*", (_req, res) => {
+  res
+    .status(404)
+    .json({ status: "error", message: "404 - Not Found", data: null });
+}); 
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
