@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.get("/", (req, res) => {
+router.get("/", (_req, res) => {
   Post.find({ "meta.isDeleted": false }, { meta: 0, tags: 0 }, (err, posts) => {
     if (err) {
       res.status(500).json({

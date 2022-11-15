@@ -21,11 +21,11 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   }
 );
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 
-app.get("/api", (req, res) => {
+app.get("/api", (_req, res) => {
   res.redirect(303, "/");
 });
 
@@ -33,7 +33,7 @@ app.use("/api/posts", posts);
 app.use("/api/comments", comments);
 app.use("/api/sync", sync);
 
-app.all("*", (req, res) => {
+app.all("*", (_req, res) => {
   res
     .status(404)
     .json({ status: "error", message: "404 - Not Found", data: null });
