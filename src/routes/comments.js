@@ -4,7 +4,7 @@ import {
   names,
   uniqueNamesGenerator,
 } from "unique-names-generator";
-import { Comment } from "../models/Comment.js";
+import Comment from "../models/Comment.js";
 
 const router = Router();
 

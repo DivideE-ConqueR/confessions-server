@@ -5,7 +5,7 @@ import {
   adjectives,
   names,
 } from "unique-names-generator";
-import { Post } from "../models/Post.js";
+import Post from "../models/Post.js";
 import Hashtag from "../models/Hashtag.js";
 
 const router = Router();
