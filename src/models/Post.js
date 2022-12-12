@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ip_regex } from "../utils/regex.js";
 
 const postSchema = new mongoose.Schema(
   {
@@ -59,6 +60,10 @@ const postSchema = new mongoose.Schema(
       },
       ip: {
         type: String,
+        validate: {
+          validator: (ip) => ip_regex.test(ip),
+          message: (props) => `${props.value} is not a valid ip`,
+        },
         required: true,
       },
       isDeleted: {
