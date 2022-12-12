@@ -8,6 +8,10 @@ const postSchema = new mongoose.Schema(
     },
     body: {
       type: String,
+      validate: {
+        validator: (body) => body.length > 2,
+        message: (props) => `${props.value} is shorter than 3 characters`,
+      },
       required: true,
     },
     tags: [String],
