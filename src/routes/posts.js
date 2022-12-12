@@ -11,6 +11,8 @@ import Hashtag from "../models/Hashtag.js";
 const router = Router();
 
 router.post("/", async (req, res) => {
+  let post;
+
   const session = await mongoose.startSession();
   const transactionOptions = {
     readPreference: "primary",
@@ -19,7 +21,7 @@ router.post("/", async (req, res) => {
   };
 
   try {
-    const transactionResults = await session.withTransaction(async () => {
+    const transaction = await session.withTransaction(async () => {
       const newPost = new Post({
         name: uniqueNamesGenerator({
           dictionaries: [adjectives, names],
@@ -29,7 +31,8 @@ router.post("/", async (req, res) => {
         ...req.body,
       });
 
-      const postsCreateResults = await newPost.save({ session });
+      const savedPost = await newPost.save({ session });
+      post = savedPost;
 
       await Hashtag.bulkWrite(
         req.body.tags.map((tag) => {
@@ -38,7 +41,7 @@ router.post("/", async (req, res) => {
               filter: { hashtag: tag },
               update: {
                 $setOnInsert: { hashtag: tag },
-                $push: { posts: postsCreateResults._id },
+                $push: { posts: savedPost._id },
               },
               upsert: true,
             },
@@ -48,11 +51,13 @@ router.post("/", async (req, res) => {
       );
     }, transactionOptions);
 
-    if (transactionResults) {
+    if (transaction) {
+      const { meta, __v, ...others } = post._doc;
+
       res.status(201).json({
         status: "success",
         message: "Post created successfully",
-        data: null,
+        data: others,
       });
     } else {
       res.status(500).json({
