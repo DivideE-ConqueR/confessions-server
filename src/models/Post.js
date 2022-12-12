@@ -50,6 +50,10 @@ const postSchema = new mongoose.Schema(
     meta: {
       uid: {
         type: String,
+        validate: {
+          validator: (uid) => uid.length === 21,
+          message: (props) => `${props.value} is not a valid uid`,
+        },
         required: true,
       },
       reports: {
