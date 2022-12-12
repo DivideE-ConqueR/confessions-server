@@ -343,6 +343,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hashtag-parser@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/hashtag-parser/-/hashtag-parser-1.0.4.tgz#6518bc582cb09fee9c1947175f52250bfc5d4919"
+  integrity sha512-vIMzD1/IWCwkccpnVg3pdfYFm2ZBxDpmDNMdBtm4FWgl3Xi16pzE7ZBDEbVpcTi5hCdD4jhYvGlEpm8Fzi/PRw==
+
 http-errors@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-2.0.0.tgz#b7774a1486ef73cf7667ac9ae0858c012c57b9d3"

@@ -5,6 +5,7 @@ import {
   adjectives,
   names,
 } from "unique-names-generator";
+import extract from "hashtag-parser";
 import Post from "../models/Post.js";
 import Hashtag from "../models/Hashtag.js";
 
@@ -28,6 +29,7 @@ router.post("/", async (req, res) => {
           separator: " ",
           style: "capital",
         }),
+        tags: extract(req.body.body, { unique: true }),
         ...req.body,
       });
 
@@ -35,7 +37,7 @@ router.post("/", async (req, res) => {
       post = savedPost;
 
       await Hashtag.bulkWrite(
-        req.body.tags.map((tag) => {
+        newPost.tags.map((tag) => {
           return {
             updateOne: {
               filter: { hashtag: tag },
