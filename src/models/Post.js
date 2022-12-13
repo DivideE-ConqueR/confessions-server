@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ip_regex } from "../utils/regex.js";
+import { ip_regex, uid_regex } from "../utils/regex.js";
 
 const postSchema = new mongoose.Schema(
   {
@@ -51,7 +51,7 @@ const postSchema = new mongoose.Schema(
       uid: {
         type: String,
         validate: {
-          validator: (uid) => uid.length === 21,
+          validator: (uid) => uid_regex.test(uid),
           message: (props) => `${props.value} is not a valid uid`,
         },
         required: true,
