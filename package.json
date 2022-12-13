@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "format": "prettier --check ./src",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./src/**/*": "prettier --write --ignore-unknown"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +25,9 @@
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "lint-staged": "^13.1.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1",
+    "husky": "^8.0.0"
   }
 }
