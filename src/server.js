@@ -22,8 +22,8 @@ Sentry.init({
     new ProfilingIntegration(),
   ],
   environment: process.env.NODE_ENV,
-  tracesSampleRate: process.env.NODE_ENV === "prod" ? 0.75 : 1.0,
-  profilesSampleRate: process.env.NODE_ENV === "prod" ? 0.75 : 1.0,
+  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.75 : 1.0,
+  profilesSampleRate: process.env.NODE_ENV === "production" ? 0.75 : 1.0,
 });
 
 app.use(Sentry.Handlers.requestHandler());
