@@ -15,7 +15,10 @@ const postSchema = new mongoose.Schema(
       },
       required: true,
     },
-    tags: [String],
+    tag: {
+      hashtags: [String],
+      mentions: [String],
+    },
     count: {
       likes: {
         type: Number,
