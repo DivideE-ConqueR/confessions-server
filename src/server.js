@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import { ProfilingIntegration } from "@sentry/profiling-node";
 import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
@@ -18,9 +19,11 @@ Sentry.init({
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Express({ app }),
+    new ProfilingIntegration(),
   ],
   environment: process.env.NODE_ENV,
   tracesSampleRate: process.env.NODE_ENV === "prod" ? 0.75 : 1.0,
+  profilesSampleRate: process.env.NODE_ENV === "prod" ? 0.75 : 1.0,
 });
 
 app.use(Sentry.Handlers.requestHandler());
