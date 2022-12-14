@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
 import mongoose from "mongoose";
 
 import posts from "./routes/posts.js";
@@ -8,7 +10,22 @@ import comments from "./routes/comments.js";
 import sync from "./routes/sync.js";
 
 dotenv.config({ debug: true });
+
 const app = express();
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN_URI,
+  integrations: [
+    new Sentry.Integrations.Http({ tracing: true }),
+    new Tracing.Integrations.Express({ app }),
+  ],
+  environment: process.env.NODE_ENV,
+  tracesSampleRate: process.env.NODE_ENV === "prod" ? 0.75 : 1.0,
+});
+
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
+
 app.use(express.json());
 app.use(cors());
 
@@ -37,7 +54,9 @@ app.all("*", (_req, res) => {
   res
     .status(404)
     .json({ status: "error", message: "404 - Not Found", data: null });
-}); 
+});
+
+app.use(Sentry.Handlers.errorHandler());
 
 app.listen(process.env.PORT || 8000, () => {
   console.log("server started");
