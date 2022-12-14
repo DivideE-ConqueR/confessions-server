@@ -80,7 +80,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", (_req, res) => {
-  Post.find({ "meta.isDeleted": false }, { meta: 0, tags: 0 }, (err, posts) => {
+  Post.find({ "meta.isDeleted": false }, { meta: 0, tag: 0 }, (err, posts) => {
     if (err) {
       res.status(500).json({
         status: "error",
@@ -98,7 +98,7 @@ router.get("/", (_req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Post.findOne({ _id: req.params.id }, { tags: 0 }, (err, post) => {
+  Post.findOne({ _id: req.params.id }, (err, post) => {
     if (err) {
       res.status(500).json({
         status: "error",
