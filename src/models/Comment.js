@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+import {
+  bodyValidation,
+  ipValidation,
+  uidValidation,
+} from "../utils/validation";
 
 const commentSchema = new mongoose.Schema(
   {
@@ -17,6 +22,10 @@ const commentSchema = new mongoose.Schema(
     },
     body: {
       type: String,
+      validate: {
+        validator: bodyValidation,
+        message: (props) => `${props.value} is shorter than 3 characters`,
+      },
       required: true,
     },
     tags: [String],
@@ -54,6 +63,10 @@ const commentSchema = new mongoose.Schema(
     meta: {
       uid: {
         type: String,
+        validate: {
+          validator: uidValidation,
+          message: (props) => `${props.value} is not a valid uid`,
+        },
         required: true,
       },
       reports: {
@@ -64,6 +77,10 @@ const commentSchema = new mongoose.Schema(
       },
       ip: {
         type: String,
+        validate: {
+          validator: ipValidation,
+          message: (props) => `${props.value} is not a valid ip`,
+        },
         required: true,
       },
       isDeleted: {
