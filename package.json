@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "cross-env NODE_ENV=dev node src/server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon src/server.js",
     "format": "prettier --check ./src",
     "prepare": "husky install"
   },
@@ -17,6 +17,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "^7.26.0",
+    "@sentry/profiling-node": "^0.0.12",
+    "@sentry/tracing": "^7.26.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -24,9 +27,10 @@
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
-    "prettier": "^2.8.1",
-    "husky": "^8.0.0"
+    "prettier": "^2.8.1"
   }
 }
