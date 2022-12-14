@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-import { ip_regex, uid_regex } from "../utils/regex.js";
+import {
+  bodyValidation,
+  ipValidation,
+  uidValidation,
+} from "../utils/validation.js";
 
 const postSchema = new mongoose.Schema(
   {
@@ -10,7 +14,7 @@ const postSchema = new mongoose.Schema(
     body: {
       type: String,
       validate: {
-        validator: (body) => body.length > 2,
+        validator: bodyValidation,
         message: (props) => `${props.value} is shorter than 3 characters`,
       },
       required: true,
@@ -54,7 +58,7 @@ const postSchema = new mongoose.Schema(
       uid: {
         type: String,
         validate: {
-          validator: (uid) => uid_regex.test(uid),
+          validator: uidValidation,
           message: (props) => `${props.value} is not a valid uid`,
         },
         required: true,
@@ -68,7 +72,7 @@ const postSchema = new mongoose.Schema(
       ip: {
         type: String,
         validate: {
-          validator: (ip) => ip_regex.test(ip),
+          validator: ipValidation,
           message: (props) => `${props.value} is not a valid ip`,
         },
         required: true,
