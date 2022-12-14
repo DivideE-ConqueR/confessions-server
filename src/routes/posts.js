@@ -5,7 +5,7 @@ import {
   adjectives,
   names,
 } from "unique-names-generator";
-import extract from "hashtag-parser";
+import extract from "mention-hashtag";
 import Post from "../models/Post.js";
 import Hashtag from "../models/Hashtag.js";
 
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
           separator: " ",
           style: "capital",
         }),
-        tags: extract(req.body.body, { unique: true }),
+        tag: extract(req.body.body, { type: "all", unique: true }),
         ...req.body,
       });
 
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
       post = savedPost;
 
       await Hashtag.bulkWrite(
-        newPost.tags.map((tag) => {
+        newPost.tag.hashtags.map((tag) => {
           return {
             updateOne: {
               filter: { hashtag: tag },
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
     }, transactionOptions);
 
     if (transaction) {
-      const { meta, __v, ...others } = post._doc;
+      const { meta, ...others } = post._doc;
 
       res.status(201).json({
         status: "success",

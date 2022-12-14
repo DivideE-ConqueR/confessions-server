@@ -23,7 +23,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "hashtag-parser": "^1.0.4",
     "mention-hashtag": "^1.1.1",
     "mongoose": "^6.5.4",
     "unique-names-generator": "^4.7.1"
