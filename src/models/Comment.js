@@ -3,7 +3,7 @@ import {
   bodyValidation,
   ipValidation,
   uidValidation,
-} from "../utils/validation";
+} from "../utils/validation.js";
 
 const commentSchema = new mongoose.Schema(
   {
