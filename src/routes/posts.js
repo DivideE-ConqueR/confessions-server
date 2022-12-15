@@ -5,6 +5,7 @@ import {
   names,
 } from "unique-names-generator";
 import { Post } from "../models/Post.js";
+import { auth } from "../middlewares/auth.js";
 
 const router = Router();
 
@@ -51,7 +52,7 @@ router.get("/", (_req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", auth, (req, res) => {
   Post.findOne({ _id: req.params.id }, { tags: 0 }, (err, post) => {
     if (err) {
       res.status(500).json({
