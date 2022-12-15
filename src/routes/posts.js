@@ -6,6 +6,7 @@ import {
 } from "unique-names-generator";
 import { Post } from "../models/Post.js";
 import { auth } from "../middlewares/auth.js";
+import { cache } from "../middlewares/cache.js";
 
 const router = Router();
 
@@ -34,7 +35,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.get("/", (_req, res) => {
+router.get("/", cache, (_req, res) => {
   Post.find({ "meta.isDeleted": false }, { meta: 0, tags: 0 }, (err, posts) => {
     if (err) {
       res.status(500).json({
