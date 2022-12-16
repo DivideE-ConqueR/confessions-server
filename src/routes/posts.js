@@ -44,6 +44,7 @@ router.post("/", async (req, res) => {
               filter: { hashtag: tag },
               update: {
                 $setOnInsert: { hashtag: tag },
+                $inc: { "count.posts": 1 },
               },
               upsert: true,
             },
