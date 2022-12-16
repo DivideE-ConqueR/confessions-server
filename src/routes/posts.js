@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import { Router } from "express";
+import mongoose from "mongoose";
 import {
   uniqueNamesGenerator,
   adjectives,
@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
           style: "capital",
         }),
         tag: extract(req.body.body, { type: "all", unique: true }),
+        //! Don't do this, it's a privacy issue. Be more specific.
         ...req.body,
       });
 
@@ -43,7 +44,6 @@ router.post("/", async (req, res) => {
               filter: { hashtag: tag },
               update: {
                 $setOnInsert: { hashtag: tag },
-                $push: { posts: savedPost._id },
               },
               upsert: true,
             },
