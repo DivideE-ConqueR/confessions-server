@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
           style: "capital",
         }),
         tag: extract(req.body.body, { type: "all", unique: true }),
-        //! Don't do this, it's a security issue. Be more specific.
+        //! Don't do this, it's a privacy issue. Be more specific.
         ...req.body,
       });
 
