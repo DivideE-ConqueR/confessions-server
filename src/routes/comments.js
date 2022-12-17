@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", (req, res) => {
   Comment.find(
     { $and: [{ pid: req.params.id }, { "meta.isDeleted": false }] },
-    { meta: 0 },
+    { meta: 0, tag: 0 },
     (err, comments) => {
       if (err) {
         res.status(500).json({
