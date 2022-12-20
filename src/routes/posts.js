@@ -24,6 +24,8 @@ router.post("/", async (req, res) => {
   try {
     const transaction = await session.withTransaction(async () => {
       const newPost = new Post({
+        //TODO: Assign community id
+        cid: "<COMMUNITY_ID>",
         name: uniqueNamesGenerator({
           dictionaries: [adjectives, names],
           separator: " ",
