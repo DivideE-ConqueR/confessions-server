@@ -17,12 +17,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@sentry/node": "^7.26.0",
+    "@sentry/node": "^7.27.0",
     "@sentry/profiling-node": "^0.0.12",
-    "@sentry/tracing": "^7.26.0",
+    "@sentry/tracing": "^7.27.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mention-hashtag": "^1.1.1",
     "mongoose": "^6.5.4",
     "unique-names-generator": "^4.7.1"
   },

@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+import {
+  bodyValidation,
+  ipValidation,
+  uidValidation,
+} from "../utils/validation.js";
 
 const postSchema = new mongoose.Schema(
   {
@@ -8,9 +13,16 @@ const postSchema = new mongoose.Schema(
     },
     body: {
       type: String,
+      validate: {
+        validator: bodyValidation,
+        message: (props) => `${props.value} is shorter than 3 characters`,
+      },
       required: true,
     },
-    tags: [String],
+    tag: {
+      hashtags: [String],
+      mentions: [String],
+    },
     count: {
       likes: {
         type: Number,
@@ -45,6 +57,10 @@ const postSchema = new mongoose.Schema(
     meta: {
       uid: {
         type: String,
+        validate: {
+          validator: uidValidation,
+          message: (props) => `${props.value} is not a valid uid`,
+        },
         required: true,
       },
       reports: {
@@ -55,6 +71,10 @@ const postSchema = new mongoose.Schema(
       },
       ip: {
         type: String,
+        validate: {
+          validator: ipValidation,
+          message: (props) => `${props.value} is not a valid ip`,
+        },
         required: true,
       },
       isDeleted: {
@@ -67,4 +87,6 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
+
+export default Post;

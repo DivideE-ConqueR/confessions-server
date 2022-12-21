@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Post } from "../models/Post.js";
+import Post from "../models/Post.js";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
-              data: null
+              data: null,
             });
           } else {
             res
@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing likes, please try again later",
-              data: null
+              data: null,
             });
           } else {
             res
@@ -53,7 +53,7 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
-              data: null
+              data: null,
             });
           } else {
             res.status(200).json({
@@ -73,12 +73,14 @@ router.post("/", (req, res) => {
             res.status(500).json({
               status: "error",
               message: "Error while syncing dislikes, please try again later",
-              data: null
+              data: null,
             });
           } else {
-            res
-              .status(200)
-              .json({ status: "success", message: "Dislikes synced", data: null });
+            res.status(200).json({
+              status: "success",
+              message: "Dislikes synced",
+              data: null,
+            });
           }
         }
       );
@@ -94,13 +96,11 @@ router.post("/", (req, res) => {
               data: null,
             });
           } else {
-            res
-              .status(200)
-              .json({
-                status: "success",
-                message: "Reports synced",
-                data: null,
-              });
+            res.status(200).json({
+              status: "success",
+              message: "Reports synced",
+              data: null,
+            });
           }
         }
       );
