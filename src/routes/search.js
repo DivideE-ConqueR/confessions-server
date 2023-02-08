@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
       $search: {
         text: {
           query: q,
-          path: ["body", "name"],
+          path: ["name", "body"],
           fuzzy: {
             maxEdits: 1,
           },
@@ -29,11 +29,11 @@ router.post("/", async (req, res) => {
         body: 1,
         count: 1,
         engagement: 1,
+        createdAt: 1,
+        updatedAt: 1,
         score: {
           $meta: "searchScore",
         },
-        createdAt: 1,
-        updatedAt: 1,
       },
     },
     {
@@ -48,10 +48,10 @@ router.post("/", async (req, res) => {
       message: "Search results",
       data: result,
     });
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({
       status: "error",
-      message: `Error searching - ${error.message}`,
+      message: `Error searching - ${err.message}`,
       data: null,
     });
   }
