@@ -11,7 +11,7 @@ import comments from "./routes/comments.js";
 import sync from "./routes/sync.js";
 import search from "./routes/search.js";
 
-dotenv.config({ debug: true });
+dotenv.config({ debug: process.env.NODE_ENV !== "production" ? true : false });
 
 const app = express();
 
