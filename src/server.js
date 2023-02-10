@@ -34,6 +34,10 @@ app.use(Sentry.Handlers.tracingHandler());
 app.use(express.json());
 app.use(cors());
 app.use(compression());
+app.use((_req, res, next) => {
+  res.header("Connection", "keep-alive");
+  next();
+});
 
 mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
