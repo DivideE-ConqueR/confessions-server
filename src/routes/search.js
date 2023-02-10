@@ -3,7 +3,7 @@ import Post from "../models/Post.js";
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
   const { q } = req.query;
 
   const pipeline = [
