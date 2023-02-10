@@ -4,7 +4,7 @@ import Post from "../models/Post.js";
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { q } = req.query;
+  const { q, sort } = req.query;
 
   const pipeline = [
     {
@@ -40,6 +40,14 @@ router.get("/", async (req, res) => {
       $limit: 30,
     },
   ];
+
+  if (sort === "top") {
+    pipeline.push({
+      $sort: {
+        engagement: -1,
+      },
+    });
+  }
 
   try {
     const result = await Post.aggregate(pipeline);
