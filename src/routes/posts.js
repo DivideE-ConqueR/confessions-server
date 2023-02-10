@@ -6,12 +6,17 @@ import {
   names,
 } from "unique-names-generator";
 import extract from "mention-hashtag";
+import {
+  createPostLimiter,
+  getPostLimiter,
+  getPostsLimiter,
+} from "../middleware/rate-limit.js";
 import Post from "../models/Post.js";
 import Hashtag from "../models/Hashtag.js";
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.post("/", createPostLimiter, async (req, res) => {
   let post;
 
   const session = await mongoose.startSession();
@@ -80,7 +85,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", (_req, res) => {
+router.get("/", getPostsLimiter, (_req, res) => {
   Post.find({ "meta.isDeleted": false }, { meta: 0, tag: 0 }, (err, posts) => {
     if (err) {
       res.status(500).json({
@@ -98,7 +103,7 @@ router.get("/", (_req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", getPostLimiter, (req, res) => {
   Post.findOne({ _id: req.params.id }, (err, post) => {
     if (err) {
       res.status(500).json({

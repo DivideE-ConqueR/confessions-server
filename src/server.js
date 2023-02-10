@@ -6,7 +6,6 @@ import * as Tracing from "@sentry/tracing";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import mongoose from "mongoose";
 import compression from "compression";
-import rateLimit from "express-rate-limit";
 
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
@@ -32,23 +31,9 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-//prevent brute force attacks
-const limiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 50,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: {
-    status: "error",
-    message: "Too many requests, please try again later",
-    data: null,
-  },
-});
-
 app.use(express.json());
 app.use(cors());
 app.use(compression());
-app.use(limiter);
 
 mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
