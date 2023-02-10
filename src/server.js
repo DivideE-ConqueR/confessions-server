@@ -9,8 +9,9 @@ import mongoose from "mongoose";
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
 import sync from "./routes/sync.js";
+import search from "./routes/search.js";
 
-dotenv.config({ debug: true });
+dotenv.config({ debug: process.env.NODE_ENV !== "production" ? true : false });
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.get("/api", (_req, res) => {
 app.use("/api/posts", posts);
 app.use("/api/comments", comments);
 app.use("/api/sync", sync);
+app.use("/api/search", search);
 
 app.all("*", (_req, res) => {
   res
