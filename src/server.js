@@ -5,6 +5,7 @@ import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import mongoose from "mongoose";
+import compression from "compression";
 
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
@@ -32,6 +33,7 @@ app.use(Sentry.Handlers.tracingHandler());
 
 app.use(express.json());
 app.use(cors());
+app.use(compression());
 
 mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
