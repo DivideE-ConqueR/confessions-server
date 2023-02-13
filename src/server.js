@@ -8,6 +8,8 @@ import mongoose from "mongoose";
 import compression from "compression";
 import sanitize from "express-mongo-sanitize";
 
+import { rootLimiter } from "./middleware/rate-limit.js";
+import { cache } from "./middleware/cache.js";
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
 import sync from "./routes/sync.js";
@@ -51,7 +53,7 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   }
 );
 
-app.get("/", (_req, res) => {
+app.get("/", rootLimiter, cache(259200, 604800), (_req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 
