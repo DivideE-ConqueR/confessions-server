@@ -11,6 +11,7 @@ import {
   getPostLimiter,
   getPostsLimiter,
 } from "../middleware/rate-limit.js";
+import { cache } from "../middleware/cache.js";
 import Post from "../models/Post.js";
 import Hashtag from "../models/Hashtag.js";
 
@@ -85,7 +86,7 @@ router.post("/", createPostLimiter, async (req, res) => {
   }
 });
 
-router.get("/", getPostsLimiter, (_req, res) => {
+router.get("/", getPostsLimiter, cache(10, 86400), (_req, res) => {
   Post.find({ "meta.isDeleted": false }, { meta: 0, tag: 0 }, (err, posts) => {
     if (err) {
       res.status(500).json({
@@ -103,7 +104,7 @@ router.get("/", getPostsLimiter, (_req, res) => {
   });
 });
 
-router.get("/:id", getPostLimiter, (req, res) => {
+router.get("/:id", getPostLimiter, cache(20, 86400), (req, res) => {
   Post.findOne({ _id: req.params.id }, (err, post) => {
     if (err) {
       res.status(500).json({

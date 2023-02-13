@@ -10,6 +10,7 @@ import {
   createCommentLimiter,
   getCommentsLimiter,
 } from "../middleware/rate-limit.js";
+import { cache } from "../middleware/cache.js";
 import Comment from "../models/Comment.js";
 import Hashtag from "../models/Hashtag.js";
 
@@ -84,7 +85,7 @@ router.post("/", createCommentLimiter, async (req, res) => {
   }
 });
 
-router.get("/:id", getCommentsLimiter, (req, res) => {
+router.get("/:id", getCommentsLimiter, cache(5, 86400), (req, res) => {
   Comment.find(
     { $and: [{ pid: req.params.id }, { "meta.isDeleted": false }] },
     { meta: 0, tag: 0 },
