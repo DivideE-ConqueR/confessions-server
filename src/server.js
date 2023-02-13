@@ -5,7 +5,11 @@ import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import mongoose from "mongoose";
+import compression from "compression";
+import sanitize from "express-mongo-sanitize";
 
+import { rootLimiter } from "./middleware/rate-limit.js";
+import { cache } from "./middleware/cache.js";
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
 import sync from "./routes/sync.js";
@@ -32,7 +36,14 @@ app.use(Sentry.Handlers.tracingHandler());
 
 app.use(express.json());
 app.use(cors());
+app.use(compression());
+app.use(sanitize({ allowDots: true }));
+app.use((_req, res, next) => {
+  res.header("Connection", "keep-alive");
+  next();
+});
 
+mongoose.set("strictQuery", true);
 mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
     console.log("Connected to MongoDB");
@@ -42,7 +53,7 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   }
 );
 
-app.get("/", (_req, res) => {
+app.get("/", rootLimiter, cache(259200, 604800), (_req, res) => {
   res.status(200).send("Hello Confessions API");
 });
 

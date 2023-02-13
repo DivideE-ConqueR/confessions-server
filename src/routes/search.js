@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { searchLimiter } from "../middleware/rate-limit.js";
 import Post from "../models/Post.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", searchLimiter, async (req, res) => {
   const { q, sort } = req.query;
 
   const pipeline = [

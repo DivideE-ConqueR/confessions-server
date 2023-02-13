@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { syncLimiter } from "../middleware/rate-limit.js";
 import Post from "../models/Post.js";
 
 const router = Router();
 
-router.post("/", (req, res) => {
+router.post("/", syncLimiter, (req, res) => {
   const { t, v } = req.query;
   const { ids } = req.body;
 

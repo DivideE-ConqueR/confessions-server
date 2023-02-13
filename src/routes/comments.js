@@ -6,12 +6,17 @@ import {
   uniqueNamesGenerator,
 } from "unique-names-generator";
 import extract from "mention-hashtag";
+import {
+  createCommentLimiter,
+  getCommentsLimiter,
+} from "../middleware/rate-limit.js";
+import { cache } from "../middleware/cache.js";
 import Comment from "../models/Comment.js";
 import Hashtag from "../models/Hashtag.js";
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.post("/", createCommentLimiter, async (req, res) => {
   let comment;
 
   const session = await mongoose.startSession();
@@ -80,7 +85,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", getCommentsLimiter, cache(5, 86400), (req, res) => {
   Comment.find(
     { $and: [{ pid: req.params.id }, { "meta.isDeleted": false }] },
     { meta: 0, tag: 0 },
