@@ -6,6 +6,7 @@ import * as Tracing from "@sentry/tracing";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import mongoose from "mongoose";
 import compression from "compression";
+import sanitize from "express-mongo-sanitize";
 
 import posts from "./routes/posts.js";
 import comments from "./routes/comments.js";
@@ -34,6 +35,7 @@ app.use(Sentry.Handlers.tracingHandler());
 app.use(express.json());
 app.use(cors());
 app.use(compression());
+app.use(sanitize({ allowDots: true }));
 app.use((_req, res, next) => {
   res.header("Connection", "keep-alive");
   next();
