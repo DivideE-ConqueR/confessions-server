@@ -17,7 +17,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@sentry/node": "^7.36.0",
+    "@sentry/node": "^7.37.2",
     "@sentry/profiling-node": "^0.1.0",
     "@sentry/tracing": "^7.36.0",
     "compression": "^1.7.4",
