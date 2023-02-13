@@ -39,6 +39,7 @@ app.use((_req, res, next) => {
   next();
 });
 
+mongoose.set("strictQuery", true);
 mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
   () => {
     console.log("Connected to MongoDB");
