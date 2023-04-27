@@ -1,6 +1,6 @@
 # Confessions Server
 
-[![Node.js CI](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/nodejs-ci.yml/badge.svg)](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/nodejs-ci.yml)
+[![CI](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/ci.yml/badge.svg)](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/codeql.yml/badge.svg)](https://github.com/DivideE-ConqueR/confessions-server/actions/workflows/codeql.yml)
 
 ### Requirements
@@ -16,7 +16,7 @@
 
 Everyone should have `yarn` installed globally.
 To install yarn, run -
-```
+```bash
 npm i -g yarn
 ```
 
@@ -31,11 +31,11 @@ Everyone should also have `Prettier` extension installed in VS Code
 - `cd` into the project folder
 
 - Install dependencies
-  ```
+  ```bash
   yarn install
   ```
 
 - To start server, run
-  ```
+  ```bash
   yarn dev
   ```
