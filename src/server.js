@@ -54,7 +54,7 @@ mongoose.connect(process.env.DB_URI, { dbName: "confessionsDB" }).then(
 );
 
 app.get("/", rootLimiter, cache(259200, 604800), (_req, res) => {
-  res.status(200).send("Hello Confessions API");
+  res.status(200).send("Hello Confessions API from Railway");
 });
 
 app.get("/api", (_req, res) => {
